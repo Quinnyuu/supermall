@@ -1,7 +1,9 @@
 <template>
     <swiper>
-        <swiper-item>
-            
+        <swiper-item v-for="item in banner" :key="item.link">
+            <a :href="item.link">
+                <img :src="item.image">
+            </a>
         </swiper-item>
     </swiper>
 </template>
@@ -12,17 +14,14 @@ import {Swiper,SwiperItem} from 'components/common/swiper'
         props: {
             banner: {
                 type: Array,
-                default: function() {
-                    return []
-                }
+                default: () => []
             }
         },
         components: {
             Swiper,
             SwiperItem
-        }
+        },
 
-        
     }
 </script>
 
