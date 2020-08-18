@@ -6,6 +6,7 @@ const Home = () => import('views/home/Home')
 const Mine = () => import('views/mine/Mine')
 const Cart = () => import('views/cart/Cart')
 const Category = () => import('views/category/Category')
+const Detail = () => import('views/detail/Detail')
 const routes = [
     {
         path: '',
@@ -26,6 +27,10 @@ const routes = [
     {
         path: '/mine',
         component: Mine
+    },
+    {
+        path: '/detail',
+        component: Detail
     }
 ]
 

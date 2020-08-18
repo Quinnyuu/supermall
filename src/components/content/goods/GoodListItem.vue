@@ -1,6 +1,6 @@
 <template>
-    <div class="good-list-item">
-        <img :src="goodItem.show.img" alt="">
+    <div class="good-list-item" @click="itemClick">
+        <img :src="showImages" alt="" @load="goodsImageLoad">
         <div class="goods-info">
             <p>{{goodItem.title}}</p>
             <span class="price">{{goodItem.price}}</span>
@@ -15,6 +15,25 @@
             goodItem: {
                 type: Object,
                 default: () => {}
+            }
+        },
+        computed: {
+            showImages() {
+                return this.goodItem.image || this.goodItem.show.img
+            }
+        },
+        methods: {
+            //通过事件总线传出图片加载完成后的函数
+            goodsImageLoad() {
+                this.$bus.$emit('itemImageLoad')
+            },
+            itemClick() {
+                this.$router.push({
+                    path: '/detail',
+                    query: {
+                        iid: this.goodItem.iid
+                    }
+                });
             }
         }
     }

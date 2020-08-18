@@ -32,7 +32,7 @@ export default {
     components: {
         Tabber,
         TabberItem        
-    },
+    }
 }
 </script>
 

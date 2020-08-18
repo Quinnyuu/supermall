@@ -1,6 +1,6 @@
 <template>
     <div class="good-list">
-        <good-list-item :good-item="item" v-for="item in goods" :key="item.iid"/>
+        <good-list-item :good-item="item" v-for="(item, index) in goods" :key="index"/>
     </div>
 </template>
 
@@ -15,9 +15,6 @@ import GoodListItem from './GoodListItem'
         },
         components: {
             GoodListItem
-        },
-        methods: {
-            
         }
     }
 </script>

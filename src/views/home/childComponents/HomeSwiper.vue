@@ -11,6 +11,11 @@
 <script>
 import {Swiper,SwiperItem} from 'components/common/swiper'
     export default {
+        data() {
+            return {
+                isLoad: false
+            }
+        },
         props: {
             banner: {
                 type: Array,
@@ -21,7 +26,14 @@ import {Swiper,SwiperItem} from 'components/common/swiper'
             Swiper,
             SwiperItem
         },
-
+        methods: {
+            // swiperImageLoad() {
+            //     if(!this.isLoad){
+            //         this.$emit('swiperImageLoad');
+            //         this.isLoad = true;
+            //     }    
+            // }
+        }
     }
 </script>
 
