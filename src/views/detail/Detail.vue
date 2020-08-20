@@ -11,6 +11,7 @@
       <good-list :goods="recommendList" ref="recomment" />
     </scroller>
     <back-top  @click.native="topClick" v-show="isShowBackTop"/>
+    <detail-bottom-nav @addCart="addCart"/>
   </div>
 </template>
 
@@ -24,6 +25,8 @@ import DetailShopInfo from "./childComponents/DetailShopInfo";
 import DetailImageInfo from "./childComponents/DetailImageInfo";
 import DetailParamsInfo from "./childComponents/DetailParamsInfo";
 import DetailCommentInfo from "./childComponents/DetailCommentInfo";
+import DetailBottomNav from './childComponents/DetailBottomNav'
+
 import { debounce } from "common/utils";
 import { RefreshMixin, BackTopMixin} from "common/mixin";
 import {
@@ -38,6 +41,7 @@ export default {
   name: "detail",
   data() {
     return {
+      iid: null,
       topImages: [],
       goodsInfo: {},
       shopInfo: {},
@@ -61,9 +65,11 @@ export default {
     DetailImageInfo,
     DetailParamsInfo,
     DetailCommentInfo,
+    DetailBottomNav,
   },
   created() {
-    getDetailInfo(this.$route.query.iid).then((res) => {
+    this.iid = this.$route.query.iid;
+    getDetailInfo(this.iid).then((res) => {
       const data = res.result;
       this.topImages = data.itemInfo.topImages; //轮播图数据
       //获取商品数据
@@ -141,6 +147,20 @@ export default {
       //backtop实现
       this.listenerShowBackTop(position);
     },
+
+    //添加购物车
+    addCart(){
+       const cartListItem = {
+         title: this.goodsInfo.title,
+         desc: this.goodsInfo.desc,
+         image: this.topImages[0],
+         price: this.goodsInfo.lowNowPrice,
+         iid: this.iid
+         };
+         this.$store.dispatch('addCart', cartListItem).then(res => {
+           this.$toast.toastMsg(res);
+         })
+    },
   },
 };
 </script>
@@ -157,7 +177,7 @@ export default {
 }
 .content {
   position: relative;
-  height: calc(100% - 44px);
+  height: calc(100% - 44px - 49px);
   background-color: #fff;
   z-index: 1;
 }
