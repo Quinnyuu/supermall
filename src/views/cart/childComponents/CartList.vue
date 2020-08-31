@@ -71,6 +71,10 @@ export default {
     submitOrder() {
       if(this.checkedLength === 0) {  
         this.$toast.toastMsg('请选择要提交的订单');
+      }else {
+        this.$toast.toastMsg('提交成功');
+        this.cartList = [];
+        this.$store.state.cartList = []
       }
     }
   },

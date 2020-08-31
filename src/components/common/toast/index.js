@@ -10,7 +10,6 @@ obj.install = function (Vue) {
     toast.$mount(document.createElement('div'))
     //将元素挂载到body上
     document.body.appendChild(toast.$el)
-    console.log(toast);
     Vue.prototype.$toast = toast;
 }
 

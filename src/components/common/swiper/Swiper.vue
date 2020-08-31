@@ -58,8 +58,8 @@ export default {
       if (this.slideCount > 1) {
         let firstSlider = this.sliderEls[0].cloneNode(true);
         let lastSlider = this.sliderEls[this.slideCount - 1].cloneNode(true);
-        this.sliderEl.insertBefore(firstSlider, this.sliderEls[0]);
-        this.sliderEl.appendChild(lastSlider);
+        this.sliderEl.insertBefore(lastSlider, this.sliderEls[0]);
+        this.sliderEl.appendChild(firstSlider);
         this.sliderWidth = this.sliderEls[0].offsetWidth;
         //设置显示未克隆的第一张
         this.setTransform(-this.currentIndex * this.sliderWidth);
@@ -70,7 +70,7 @@ export default {
     startTimer() {
       this.playTimer = setInterval(() => {
         this.currentIndex++;
-        this.scrollContent(-this.currentIndex * this.sliderWidth);
+        this.scrollContent();
       }, this.intervalTime);
     },
     //关闭定时器
@@ -79,33 +79,30 @@ export default {
     },
 
     //滚动到正确位置
-    scrollContent(position) {
+    scrollContent() {
       this.scrolling = true; // 正在滚动
+      window.setTimeout(() => {
+          // 1.校验正确的位置
+          this.sliderEl.style.transition = '0ms';
+          if (this.currentIndex >= this.slideCount + 1) {
+            this.currentIndex = 1;
+            this.setTransform(-this.currentIndex * this.sliderWidth);
+          } else if (this.currentIndex <= 0) {
+            this.currentIndex = this.slideCount;
+            this.setTransform(-this.currentIndex * this.this.sliderWidth);
+          }
+
+          // 2.结束移动后的回调
+          this.$emit('transitionEnd', this.currentIndex-1);
+        }, 30)
       this.sliderEl.style.transition = "0.3s all";
-      this.setTransform(position);
-      this.checkPosition();
+      this.setTransform(-this.currentIndex * this.sliderWidth);
       this.scrolling = false; //滚动完成
     },
     //移动到某位置
     setTransform(moveDistance) {
+      console.log(moveDistance);
       this.sliderEl.style.transform = `translateX(${moveDistance}px)`;
-    },
-    //
-    checkPosition() {
-      setTimeout(() => {
-        //轮播图的设置
-        this.sliderEl.style.transition = "0s";
-        if (this.currentIndex >= this.slideCount + 1) {
-          this.currentIndex = 1;
-          this.setTransform(-this.currentIndex * this.sliderWidth);
-        } else if (this.currentIndex <= 0) {
-          this.currentIndex = this.slideCount;
-          this.setTransform(-this.currentIndex * this.sliderWidth);
-        }
-
-        // 2.结束移动后的回调
-        this.$emit("transitionEnd", this.currentIndex - 1);
-      }, 300);
     },
 
     touchStart(e) {
@@ -139,6 +136,7 @@ export default {
       }
 
       //滚动位置
+      console.log(-this.currentIndex * this.sliderWidth);
       this.scrollContent(-this.currentIndex * this.sliderWidth);
       //开启自动轮播
       this.startTimer();
