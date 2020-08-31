@@ -101,7 +101,6 @@ export default {
     },
     //移动到某位置
     setTransform(moveDistance) {
-      console.log(moveDistance);
       this.sliderEl.style.transform = `translateX(${moveDistance}px)`;
     },
 
