@@ -9,5 +9,8 @@ module.exports = {
                 'common': '@/common',
             }
         }
-    }
+    },
+    publicPath: "./",
+    assetsDir: "static",
+    outputDir: 'dist',
 }
