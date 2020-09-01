@@ -12,8 +12,8 @@
 
 <style scoped>
     .swiper-item {
-        float: left;
-        width: 25%;
+        width: 100%;
+        flex-shrink: 0;
     }
     .swiper-item img {
         width: 100%;

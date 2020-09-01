@@ -60,7 +60,7 @@ export default {
         let lastSlider = this.sliderEls[this.slideCount - 1].cloneNode(true);
         this.sliderEl.insertBefore(lastSlider, this.sliderEls[0]);
         this.sliderEl.appendChild(firstSlider);
-        this.sliderWidth = this.sliderEls[0].offsetWidth;
+        this.sliderWidth =  this.sliderEl.offsetWidth;
         //设置显示未克隆的第一张
         this.setTransform(-this.currentIndex * this.sliderWidth);
       }
@@ -135,7 +135,6 @@ export default {
       }
 
       //滚动位置
-      console.log(-this.currentIndex * this.sliderWidth);
       this.scrollContent(-this.currentIndex * this.sliderWidth);
       //开启自动轮播
       this.startTimer();
@@ -152,7 +151,6 @@ export default {
 }
 .swiper {
   display: flex;
-  width: 600%;
 }
 #indicator {
   position: absolute;
