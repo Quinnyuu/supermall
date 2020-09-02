@@ -1,7 +1,7 @@
 import axios from 'axios'
 export function request(config) {
     const instance = axios.create({
-        baseURL: 'http://123.207.32.32:8000/api/x6',
+        baseURL: '/api',
         timeout: 30000
     })
     //axios的拦截器
